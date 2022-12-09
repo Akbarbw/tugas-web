@@ -1,0 +1,73 @@
+{% load static %}
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="page-header__inner">
+            <div class="page-header__sidebar">
+                <div class="page-header__menu-btn">
+                    <button class="menu-btn ico_menu is-active"></button>
+                </div>
+                <div class="page-header__logo">
+                    <img src="{% static 'assets/img/logo.png' %}" alt="logo"/><span
+                        class="page-header__logo_text"
+                >Diss-Cuss</span
+                >
+                </div>
+            </div>
+            <div class="page-header__content">
+                <form action="{% url 'home' %}" method="GET">
+                    <div class="page-header__search">
+                        <div class="search">
+                            <div class="search__input">
+                                <i class="ico_search"></i
+                                ><input type="search" name="search" placeholder="Search"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {% if request.user.is_authenticated %}
+                    <div class="page-header__action">
+                        <a href="{{ request.user.username }}">{{ request.user.username }}</a>
+                        <a class="profile" href="#"
+                        ><img src="{% static 'assets/img/foto.jpg' %}" alt="profile"
+                        /></a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <img src="{% static 'images/avatar.svg' %}"/>
+                        <p>Login</p>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <div class="page-content">
+        <aside class="sidebar is-show" id="sidebar">
+            <div class="sidebar-box">
+                <ul class="uk-nav">
+                    <li>
+                        <a href="{% url 'home' %}"><i class="ico_home"></i><span>Home</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="ico_gallery"></i><span>News</span></a>
+                    </li>
+                    <li class="uk-nav-header">Account</li>
+                    <li>
+                        <a href="{% url 'update-user' user.id %}"
+                        ><i class="ico_profile"></i><span>Profile</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#"
+                        ><i class="ico_favourites"></i><span>Favourites</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}"
+                        ><i class="ico_info-circle"></i><span>Logout</span></a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>

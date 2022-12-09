@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <main class="page-main">
+        <div class="uk-width-3-3@l">
+            <div class="form-login__box">
+                <div class="uk-heading-line uk-text-center">
+                    <span>Create disscussion</span>
+                </div>
+                <form class="form" action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="uk-margin">
+                        <label>Room Topic</label>
+                            <input required type="text" name="topic" value="{{ room.topic.name }}" list="topic-list">
+                            <datalist id="topic-list">
+                                <select id="room_topic">
+                                    {% for topic in topics %}
+                                        <option val ue="{{ topic.name }}">{{ topic.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </datalist>
+                    </div>
+                    <div class="uk-margin">
+                        <label>Name disscussion</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="uk-margin">
+                        <label>Name disscussion</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-danger" type="submit"
+                        >Create</button
+                        >
+                        <a class="uk-button uk-button-primary" href="{% url 'home' %}"
+                        >Back</a
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

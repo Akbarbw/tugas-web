@@ -1,51 +1,53 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
-    <main class="profile-page layout layout--3">
-        <div class="container">
-            <!-- Topics Start -->
-            {% include 'base/component/topic_component.html' %}
-            <!-- Topics End -->
-
-            <!-- Room List Start -->
-            <div class="roomList">
-                <div class="profile">
-                    <div class="profile__avatar">
-                        <div class="avatar avatar--large active">
-                            <img src="https://randomuser.me/api/portraits/men/11.jpg"/>
+    <main class="page-main">
+        <div class="uk-grid" data-uk-grid>
+            <div class="uk-width-2-3@l">
+                <div class="widjet --profile">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Profile</h3>
+                    </div>
+                    <div class="widjet__body">
+                        <div class="user-info">
+                            <div class="user-info__avatar">
+                                <img src="{% static 'assets/img/foto.jpg' %}" alt="profile"/>
+                            </div>
+                            <div class="user-info__box">
+                                <div class="user-info__title">{{ user.username }}</div>
+                                <div class="user-info__text"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="profile__info">
-                        <h3>{{ user.username}}</h3>
-                        <p id="user-color">@{{ user.username }}</p>
                         {% if request.user == user %}
-                        <a href="{% url 'update-user' user.id %}" class="btn btn--main btn--pill">Edit Profile</a>
+                            <a class="uk-button uk-button-danger" href="{% url 'update-user' user.id %}"
+                            ><i class="ico_edit"></i
+                            ><span class="uk-margin-small-left">Edit Profile</span></a
+                            >
                         {% endif %}
-                    </div>
-                    <div class="profile__about">
-                        <h3>About</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
-                            facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
-                            accusamus repudiandae quis ab ex exercitationem rem?
-                        </p>
+
                     </div>
                 </div>
-
-                <div class="roomList__header">
-                    <div class>
-                        <h2>Rooms Hosted by {{ user.username }} </a>
-                        </h2>
+                <div class="widjet --bio">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Bio</h3>
+                    </div>
+                    <div class="widjet__body">
+                  <span
+                  >Here you can put your biography you need try to make it
+                    attractive and professional, just be honest and
+                    polite.</span
+                  >
                     </div>
                 </div>
-                {% include 'base/component/feed_component.html' %}
-
+                <div class="widjet --activity">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Group by <a href="#">@akbar</a></h3>
+                    </div>
+                    {% include 'base/component/room_component.html' %}
+                </div>
             </div>
-            <!-- Room List End -->
-
-            <!-- Activities Start -->
-            {% include 'base/component/activity_component.html' %}
-            <!-- Activities End -->
+            {% include 'base/component/discussion_component.html' %}
+        </div>
         </div>
     </main>
-{% endblock content %}
+{% endblock %}
