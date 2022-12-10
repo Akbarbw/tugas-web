@@ -87,7 +87,7 @@
                             <a href="{% url 'user-profile' user.id %}">{{ request.user.username }}</a>
                         </div>&nbsp;&nbsp;&nbsp;
                         <div class="user-item__avatar">
-                            <a href="{% url 'user-profile' user.id %}"><img src="{% static 'assets/img/foto.jpg' %}"
+                            <a href="{% url 'user-profile' user.id %}"><img src="{{request.user.avatar.url}}"
                                                                             alt="user"/></a>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                             <a href="{% url 'home' %}"><i class="ico_home"></i><span>Home</span></a>
                         </li>
                         <li>
-                            <a href="{% url 'news' %}"><i class="ico_gallery"></i><span>News</span></a>
+                            <a href="{% url 'news' %}?country=us"><i class="ico_gallery"></i><span>News</span></a>
                         </li>
                         <li class="uk-nav-header">Account</li>
                         <li>
@@ -130,7 +130,7 @@
                             <a href="{% url 'home' %}"><i class="ico_home"></i><span>Home</span></a>
                         </li>
                         <li>
-                            <a href="{% url 'news' %}"><i class="ico_gallery"></i><span>News</span></a>
+                            <a href="{% url 'news' %}?country=us"><i class="ico_gallery"></i><span>News</span></a>
                         </li>
                     {% endif %}
                 </ul>

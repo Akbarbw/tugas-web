@@ -5,7 +5,7 @@
             <div class="game-card__box">
                 <div class="game-card__media">
                     <a href="{% url 'user-profile' room.host.id %}"
-                    ><img src="{% static 'assets/img/foto.jpg' %}" alt="Game Name"
+                    ><img src="{{room.host.avatar.url}}" alt="Game Name"
                     /></a>
                 </div>
                 <div class="game-card__info">

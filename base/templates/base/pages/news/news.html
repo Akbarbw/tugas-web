@@ -9,23 +9,56 @@
                         <h3 class="uk-text-lead">News</h3>
                     </div>
                 </div>
-                {% for title, desc, i in mylist %}
+                <div class="uk-width">
+                    <form class="header__search" method="GET">
+                        <div class="search">
+                            <div class="search__input">
+                                <input
+                                        type="search"
+                                        name="category"
+                                        placeholder="Search"
+                                />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="uk-subnav uk-subnav-pill">
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=technology&country=us">Technology</a>
+                    </li>
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=health&country=us">Health</a>
+                    </li>
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=Entertainment&country=us">Entertainment</a>
+                    </li>
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=Sports&country=us">Sports</a>
+                    </li>
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=Science&country=us">Science</a>
+                    </li>
+                    <li data-uk-filter-control>
+                        <a href="{% url 'news' %}?category=Business">Business</a>
+                    </li>
+                </ul>
+                {% for i in articles %}
                     <div class="game-card --horizontal --small">
                         <div class="game-card --horizontal --small">
                             <div class="game-card__box">
                                 <div class="game-card__media">
-                                    <img src="{{ i }}" alt="Game Name"
+                                    <img src="{{ i.urlToImage }}" alt="Game Name"
                                     />
                                 </div>
                                 <div class="game-card__info">
 
-                                    <p class="game-card__title">{{ title }}</p>
+                                    <p class="game-card__title">{{ i.title }}</p>
                                     <div class="game-card__discussion">
-                                       {{ desc }}
+                                        {{ i.description }}
                                     </div>
                                 </div>
                                 <div class="game-card__more">
-                                    <a href="#"><i class="ico_more"></i></a>
+                                    <a href="{{ i.url }}" target="_blank"><i class="ico_more"></i></a>
                                 </div>
                             </div>
                         </div>

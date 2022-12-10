@@ -4,11 +4,10 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, Topic, Message
-from .forms import RoomForm, UserForm
+from .models import Room, Topic, Message, User
+from .forms import RoomForm, UserForm, MyUserCreationForm
 
 
 # Create your views here.
@@ -48,10 +47,10 @@ def logoutUser(request):
 
 
 def registerPage(request):
-    form = UserCreationForm()
+    form = MyUserCreationForm()
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MyUserCreationForm(request.POST)
 
         if form.is_valid():
             user = form.save(commit=False)
@@ -94,26 +93,27 @@ def room(request, pk):
     return render(request, 'base/pages/room/room.html', context)
 
 def news(request):
-    url = 'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=32688567304b4ed78403e4d6030ede04'
 
-    crypto_news = requests.get(url).json()
+    country = request.GET.get('country')
+    category = request.GET.get('category')
 
-    a = crypto_news['articles']
-    desc = []
-    title = []
-    img = []
-    content = []
+    if country:
+        url = f'https://newsapi.org/v2/top-headlines?country={country}&apiKey=32688567304b4ed78403e4d6030ede04'
+        response = requests.get(url)
+        data = response.json()
+        articles = data['articles']
+    else:
+        url = f'https://newsapi.org/v2/top-headlines?category={category}&apiKey=32688567304b4ed78403e4d6030ede04'
+        response = requests.get(url)
+        data = response.json()
+        articles = data['articles']
 
-    for i in range(len(a)):
-        f = a[i]
-        title.append(f['title'])
-        desc.append(f['description'])
-        img.append(f['urlToImage'])
-    mylist = zip(title, desc, img)
-
-    context = {'mylist': mylist}
+    context = {
+        'articles': articles
+    }
 
     return render(request, 'base/pages/news/news.html', context)
+
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()

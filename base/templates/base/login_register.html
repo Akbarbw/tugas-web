@@ -162,8 +162,8 @@
                             <div class="uk-heading-line uk-text-center">
                                 <span>or with Email</span>
                             </div>
-                           <form class="form" action="" method="POST">
-          {% csrf_token %}
+                            <form class="form" action="" method="POST">
+                                {% csrf_token %}
                                 {% for field in form %}
                                     <div class="uk-margin">
                                         <label>{{ field.label }}</label>
