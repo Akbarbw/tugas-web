@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
     path('login/', views.loginPage, name="login"),
     path('register/', views.registerPage, name="register"),
+    path('oauth/', include('social_django.urls', namespace='social')),
     path('logout/', views.logoutUser, name="logout"),
     path('', views.home, name="home"),
     path('news/', views.news, name="news"),
